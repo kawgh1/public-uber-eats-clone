@@ -1,0 +1,28 @@
+# I tried to deploy on Google Cloud with a docker file below
+# I couldn't get it to work and wasnt going to waste too much time on it
+
+# build environment
+FROM node:14-alpine as react-build
+
+# install global packages
+ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
+ENV PATH /home/node/.npm-global/bin:$PATH
+RUN npm i --unsafe-perm -g npm@latest expo-cli@latest
+
+WORKDIR /app
+ADD . ./
+RUN npm install
+RUN npx expo-optimize
+
+# used for ENV
+RUN expo build:web
+
+# server environment
+FROM nginx:alpine
+ADD nginx.conf /etc/nginx/conf.d/configfile.template
+COPY --from=react-build /app/web-build /usr/share/nginx/html
+ENV PORT 8080
+
+ENV HOST 0.0.0.0
+EXPOSE 8080
+CMD sh -c "envsubst '\$PORT' < /etc/nginx/conf.d/configfile.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
