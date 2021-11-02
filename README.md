@@ -72,14 +72,15 @@ https://musing-minsky-5247a3.netlify.app/
 
     -   **npm install reanimated-bottom-sheet**
 
-    -   ## Redux
+-   ## Redux
+
     -   **npm install react-redux**
     -   Why are we using redux? To manage the Cart state for when users add or remove menu Items
     -   we need this state to process orders and send to Firebase
 
--   ### Redux Store Diagram
+    -   ### Redux Store Diagram
 
-    ![redux store diagram](https://raw.githubusercontent.com/kawgh1/uber-eats-clone/main/react-redux-hooks.png)
+        ![redux store diagram](https://raw.githubusercontent.com/kawgh1/public-uber-eats-clone/master/react-redux-hooks.png)
 
 -   ## Firebase
 
